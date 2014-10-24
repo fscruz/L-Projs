@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using SearchLibrary;
 
-namespace ReplaceWizard
+namespace ReplaceWizard.DBArtifacts
 {
-    public class DBTable : IDBObject
+    public class DBTable : IDBArtifact
     {
         public String BaseScript { get; set; }
 
         public String Name { get; set; }
 
         public string Type { get; private set; }
+
+        internal ITableComponent Components { get; set; }
 
         public DBTable(string name, string baseScript)
         {
@@ -114,6 +116,10 @@ namespace ReplaceWizard
             {
                 return AlterationType.Index;
             }
+            else if(alteration.Contains("FULLTEXT"))
+            {
+                return AlterationType.FullText;
+            }
             else
             {
                 return AlterationType.Column;
@@ -125,13 +131,27 @@ namespace ReplaceWizard
         {
             string[] alterationValues = alteration.SplitToMinimun().ToArray();
 
-            // The list of alterations for columns always come with the column name as the first word of the alteration.
+            // The list of alterations for columns always come with the column name as the first word of the alteration. ( HARDCODING!!!!:'( )
+            // Store column Name and remove from alteration line.
             string columnName = alterationValues[0];
+
+            alteration = alteration.Replace(columnName, "");
+
+            // Trim column name.
+            columnName = columnName.TrimStart('[');
+            columnName = columnName.TrimEnd(']');
+
+            string cleanTableName = this.Name.Replace("[dbo].", "");
+            cleanTableName = cleanTableName.TrimStart('[');
+            cleanTableName = cleanTableName.TrimEnd(']');
+
 
             string alterColumnScript = Scripts.AddColumnExistCondition(columnName, this.Name, true);
 
             alterColumnScript += "BEGIN \r\n";
-            alterColumnScript += Scripts.AddAlterColumn(columnName, this.Name) + " " + alteration.Replace(columnName, "") + "\r\n";
+            alterColumnScript += Scripts.AddAlterColumn(columnName, cleanTableName) + " " + alteration + "\r\n";
+            alterColumnScript += Scripts.AddPrint("Column " + columnName + " altered.");
+            alterColumnScript += "\r\n";
             alterColumnScript += "END \r\n";
 
             return alterColumnScript;
@@ -142,18 +162,24 @@ namespace ReplaceWizard
             throw new NotImplementedException();
         }
 
+        private string CreateDropIndexScript(string Index)
+        {
+            throw new NotImplementedException();
+        }
+
         private string CreateAlterConstraintScript(string alteration)
         {
             throw new NotImplementedException();
         }
 
-        
+
 
         enum AlterationType
         {
             Column,
             Constraint,
-            Index
+            Index,
+            FullText
         }
 
 

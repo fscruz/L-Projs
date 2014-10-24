@@ -52,6 +52,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Column.cs" />
+    <Compile Include="Constraint.cs" />
     <Compile Include="DBFunction.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="DBObjectFactory.cs" />
@@ -59,8 +61,11 @@
     <Compile Include="DBTable.cs" />
     <Compile Include="DBView.cs" />
     <Compile Include="Exceptions\IncompatibleNumberOfIndexesException.cs" />
-    <Compile Include="IDBObject.cs" />
-    <Compile Include="IDBObjectList.cs" />
+    <Compile Include="FTIndex.cs" />
+    <Compile Include="IDBArtifact.cs" />
+    <Compile Include="IDBArtifactList.cs" />
+    <Compile Include="ITableComponents.cs" />
+    <Compile Include="NCIndex.cs" />
     <Compile Include="NotADBObjectException.cs" />
     <Compile Include="Scripts.cs" />
     <Compile Include="Worker.cs" />

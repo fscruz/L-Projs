@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReplaceWizard
+namespace ReplaceWizard.DBArtifacts
 {
-    class IDBObjectList : IEnumerable
+    class IDBArtifactList : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

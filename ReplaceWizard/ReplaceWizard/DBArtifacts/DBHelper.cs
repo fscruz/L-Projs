@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SearchLibrary;
 
 
-namespace ReplaceWizard
+namespace ReplaceWizard.DBArtifacts
 {
     public static class DBHelper
     {

@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReplaceWizard
+namespace ReplaceWizard.DBArtifacts
 {
-    public static class DBObjectFactory
+    public static class DBArtifactFactory
     {
 
-        public static IDBObject New(Type dbObjType)
+        public static IDBArtifact New(Type dbObjType)
         {
-            if(!(typeof(IDBObject).IsAssignableFrom(dbObjType)))
+            if(!(typeof(IDBArtifact).IsAssignableFrom(dbObjType)))
             {
-                throw new Exceptions.NotADBObjectException();
+                throw new Exceptions.NotADBArtifactException();
             }
             // Creating through parameterless constructor.
-            return (IDBObject)Activator.CreateInstance(dbObjType);
+            return (IDBArtifact)Activator.CreateInstance(dbObjType);
         }
 
         /// <summary>

@@ -12,6 +12,7 @@ namespace TestProject
 {
     class SearchExtensionsTest
     {
+        // Not a real test method (NORTM).
         [TestMethod]
         public void SingleSearchAsyncTest()
         {
@@ -27,7 +28,6 @@ namespace TestProject
                 FileStream file = new FileStream(String.Format(@"C:\LawOffice\WorkingArea\Projects\ReplaceWizard\ConsoleDebug\bin\Debug\Test{0}.txt", i), FileMode.Open, FileAccess.ReadWrite);
                 lookHere.Add(file);
             }
-            //writer.Close();
 
             Stopwatch watch = Stopwatch.StartNew();
 

@@ -18,6 +18,16 @@ namespace ReplaceWizard
 
         public static string AddExecConditionalDrop(string objectName, string objType)
         {
+            if(objectName.Contains('\'') || objectName.Contains(' '))
+            {
+                throw new ArgumentException("Argument objectName contains invalid characters.");
+            }
+
+            if (objType.Contains('\'') || objType.Contains(' '))
+            {
+                throw new ArgumentException("Argument objType contains invalid characters.");
+            }
+
             return "EXEC dbo.sp_executesql @statement = N'IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N''" + objectName + "'')) \r\n DROP " + objType + " ''" + objectName + "'' '\r\n";
         }
 
@@ -43,6 +53,11 @@ namespace ReplaceWizard
         internal static string AddQuotedIdentifiers()
         {
             return "SET QUOTED_IDENTIFIER ON \r\n GO \r\n";
+        }
+
+        internal static string AddPrint(string message)
+        {
+            return "PRINT '" + message.Replace("\'", "\'\'") + "'";
         }
     }
     

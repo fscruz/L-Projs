@@ -18,21 +18,21 @@ namespace ConsoleDebug
         {
             List<string> dirs = new List<string>();
 
-            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Tables");
-            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Functions");
-            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Views");
+            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Tables");
+            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Functions");
+            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Views");
             dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Stored Procedures");
 
-            //string oldText = "SQL_Latin1_General_CP1_CI_AI";
+            string oldText = "SQL_Latin1_General_CP1_CI_AI";
 
-            //string newText = "Latin1_General_CI_AI";
+            string newText = "Latin1_General_CI_AI";
 
             //string find = "SQL_Latin1";
 
 
-            string oldText = "XML";
+            //string oldText = "XML";
 
-            string newText = "XML";
+            //string newText = "XML";
 
 
             List<Stream> filesWithText = new List<Stream>();
@@ -53,23 +53,24 @@ namespace ConsoleDebug
                 file.Close();
             }
 
-            List<IDBObject> dbObjs = new List<IDBObject>();
+            List<IDBArtifact> dbObjs = new List<IDBArtifact>();
 
-            // This will only work since all scripts are generated in Windows and in a per-line basis:
+            
             // Get all db objects from the resulting scripts.
+            // ATENTION: The next methods assume all scripts are generated in Windows (because of CRLF endings) and in a specific indented basis (e.g. with a column per line in table creation scripts):
             foreach(string currentText in textsFromSearchResults)
             {
                 Type typeOfScript;
                 try
                 {
-                    typeOfScript = DBObjectFactory.GetDBTypeFromScript(currentText);
+                    typeOfScript = DBArtifactFactory.GetDBTypeFromScript(currentText);
                 }
-                catch (NotADBObjectException)
+                catch (NotADBArtifactException)
                 {
                     continue;
                 }
 
-                IDBObject currentObj = DBObjectFactory.New(typeOfScript);
+                IDBArtifact currentObj = DBArtifactFactory.New(typeOfScript);
 
                 currentObj.Name = DBHelper.GetDBOName(currentText);
                 currentObj.BaseScript = currentText;
@@ -99,6 +100,11 @@ namespace ConsoleDebug
         {
             // Prepare directory
             string directoryName = Path.Combine(Directory.GetCurrentDirectory(), subDirectory);
+
+            // Add possible aditional subdirectories
+
+            directoryName = Path.Combine(directoryName, "Collate");
+
             Directory.CreateDirectory(directoryName);
             
             // Write to file

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using SearchLibrary;
 using ReplaceWizard.Exceptions;
 
-namespace ReplaceWizard
+namespace ReplaceWizard.DBArtifacts
 {
-    class DBProcedure : IDBObject
+    class DBProcedure : IDBArtifact
     {
         public string BaseScript { get; set; }
 
@@ -57,8 +57,10 @@ namespace ReplaceWizard
 
             string baseScriptCorrected = this.BaseScript.Substring(baseScriptStartIndex, this.BaseScript.Length - baseScriptStartIndex);
 
+            // Changes script from old to new.
             baseScriptCorrected = baseScriptCorrected.Replace(oldText, newText);
 
+            // Add initial conditional drop for the proc to ensure the proc can be created. 
             string alteringScript = Scripts.AddExecConditionalDrop(this.Name, "PROC");
 
             alteringScript += "\r\n";
@@ -71,8 +73,6 @@ namespace ReplaceWizard
             alteringScript += "\r\n";
 
             alteringScript += Scripts.AddExec(baseScriptCorrected);
-
-            //alteringScript = alteringScript.LastIndexOf("");
 
             alteringScript = alteringScript.RemoveWord("GO", '\n', '\r');
 
