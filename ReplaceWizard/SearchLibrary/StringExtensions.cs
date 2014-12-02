@@ -12,7 +12,7 @@ namespace SearchLibrary
 
         // TODO: Finish
         /// <summary>
-        /// Split current instance
+        /// Split current instance 
         /// </summary>
         /// <param name="originalText"></param>
         /// <returns></returns>
@@ -186,7 +186,7 @@ namespace SearchLibrary
             }
 
             // Sort indexes descending to avoid changing position indexes.
-            indexesOfOccurence.Sort((i,j) => i >= j ? i : j);
+            indexesOfOccurence.Sort((i, j) => -i.CompareTo(j));
 
             string result = currentText;
 

@@ -18,5 +18,46 @@ namespace ReplaceWizard.DBArtifacts
         {
             set { throw new NotImplementedException(); }
         }
+
+        public DBTable Parent
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        ComponentType ITableComponent.Type
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        string ITableComponent.scriptLine
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public DBTable FindParent()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

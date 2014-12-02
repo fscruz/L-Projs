@@ -15,7 +15,7 @@ namespace TestProject
         {
             string alteration = "[dsFeriado] [varchar] (100) COLLATE Latin1_General_CI_AI NULL";
 
-            DBTable table = new DBTable("TableName", "");
+            //DBTable table = new DBTable("TableName", "");
 
 
             //string script = table.CreateAlteringScript(new string[] { alteration }, new int[] { });

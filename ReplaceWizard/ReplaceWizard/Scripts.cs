@@ -28,7 +28,7 @@ namespace ReplaceWizard
                 throw new ArgumentException("Argument objType contains invalid characters.");
             }
 
-            return "EXEC dbo.sp_executesql @statement = N'IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N''" + objectName + "'')) \r\n DROP " + objType + " ''" + objectName + "'' '\r\n";
+            return "EXEC dbo.sp_executesql @statement = N'IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N''" + objectName + "'')) \r\n DROP " + objType + " " + objectName + " '\r\n";
         }
 
         public static string AddExec(string baseScript)
@@ -49,6 +49,17 @@ namespace ReplaceWizard
             return response;
         }
 
+        public static string AddDataExistCondition(string tableName, string data, string column, bool exist)
+        {
+            string response = "IF ";
+            if (!exist)
+            {
+                response += "NOT ";
+            }
+            response += "EXISTS ( SELECT 1 FROM " + tableName + " WHERE " + column + " = " + data + " )";
+
+            return response;
+        }
 
         internal static string AddQuotedIdentifiers()
         {

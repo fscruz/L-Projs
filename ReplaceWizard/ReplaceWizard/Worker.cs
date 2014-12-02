@@ -45,9 +45,10 @@ namespace ReplaceWizard
             List<Stream> files = new List<Stream>();
             foreach(string filePath in filesPath)
             {
-                files.Add(File.Open(filePath, FileMode.Open));
+                StreamReader file = new StreamReader(filePath, Encoding.Default, true);
+                files.Add(file.BaseStream);
             }
-            
+
             return files;
         }
 
@@ -81,32 +82,19 @@ namespace ReplaceWizard
             return ReplaceAll(sourceTexts, oldString, newString, true);
         }
 
-        public static IEnumerable<String> GetFileNames(IEnumerable<Stream> files)
-        {
-            List<String> names = new List<String>();
-
-            foreach(Stream file in files)
-            {
-                if(!(file is FileStream))
-                {
-                    throw new ArgumentException("Passed argument 'files' contains non FileStream elements");
-                }
-
-                FileStream fileInfo = file as FileStream;
-
-                names.Add(fileInfo.Name);
-            }
-
-            return names;
-        }
-
-        public static IEnumerable<String> ReadAllFiles(IEnumerable<Stream> files)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static IEnumerable<String> ReadAllFiles(IEnumerable<Stream> files, Encoding encoding)
         {
             List<String> filesContent = new List<String>();
 
             foreach(Stream file in files)
             {
-                StreamReader reader = new StreamReader(file);
+                StreamReader reader = new StreamReader(file, encoding, true);
 
                 filesContent.Add(reader.ReadToEnd());
             }
@@ -114,5 +102,14 @@ namespace ReplaceWizard
             return filesContent;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public static IEnumerable<String> ReadAllFiles(IEnumerable<Stream> files)
+        {
+            return ReadAllFiles(files, Encoding.Default);
+        }
     }
 }

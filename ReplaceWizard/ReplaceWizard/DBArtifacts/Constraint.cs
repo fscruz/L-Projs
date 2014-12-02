@@ -5,11 +5,15 @@ using System.Text;
 
 namespace ReplaceWizard.DBArtifacts
 {
-    class NCIndex : ITableComponent
+    class Constraint : ITableComponent
     {
         private string scriptLine;
 
-
+        public Constraint(string scriptLine)
+        {
+            // TODO: Complete member initialization
+            this.scriptLine = scriptLine;
+        }
 
         public DBTable Parent
         {

@@ -53,7 +53,7 @@ namespace ReplaceWizard.DBArtifacts
         public string CreateAlteringScript(string oldText, string newText)
         {
 
-            int baseScriptStartIndex = this.BaseScript.ToLower().IndexOf("create");
+            int baseScriptStartIndex = this.BaseScript.ToLower().IndexOf("create proc");
 
             string baseScriptCorrected = this.BaseScript.Substring(baseScriptStartIndex, this.BaseScript.Length - baseScriptStartIndex);
 
@@ -74,6 +74,8 @@ namespace ReplaceWizard.DBArtifacts
 
             alteringScript += Scripts.AddExec(baseScriptCorrected);
 
+
+            // Removing all words 'GO' ocurrences, considering, as diferential characters, line endings, '\n' and '\r', and the default ' '
             alteringScript = alteringScript.RemoveWord("GO", '\n', '\r');
 
             return alteringScript;           
