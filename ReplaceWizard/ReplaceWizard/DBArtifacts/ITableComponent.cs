@@ -8,9 +8,9 @@ namespace ReplaceWizard.DBArtifacts
     interface ITableComponent 
     {
 
-        internal DBTable Parent { get; set; }
+        DBTable Parent { get; set; }
 
-        internal ComponentType Type { get; set; }
+        ComponentType Type { get; set; }
 
         string scriptLine { get; set; }
 

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Diagnostics;
 using ReplaceWizard;
 using ReplaceWizard.Exceptions;
+using ReplaceWizard.DBArtifacts;
 
 namespace ConsoleDebug
 {
@@ -18,10 +19,11 @@ namespace ConsoleDebug
         {
             List<string> dirs = new List<string>();
 
-            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Tables");
-            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Functions");
-            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Views");
-            dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Stored Procedures");
+            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Tables");
+            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Functions");
+            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Views");
+            //dirs.Add(@"C:\LawOffice\WorkingArea\DBPro\Template35\Stored Procedures");
+            dirs.Add(@"C:\LawOffice\Temp\Scripts");
 
             string oldText = "SQL_Latin1_General_CP1_CI_AI";
 
@@ -103,7 +105,7 @@ namespace ConsoleDebug
 
             // Add possible aditional subdirectories
 
-            directoryName = Path.Combine(directoryName, "Collate");
+            directoryName = Path.Combine(directoryName, "Correcao-72");
 
             Directory.CreateDirectory(directoryName);
             

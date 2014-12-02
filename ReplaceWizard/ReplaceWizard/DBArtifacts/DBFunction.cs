@@ -43,7 +43,7 @@ namespace ReplaceWizard.DBArtifacts
 
             //alteringScript = alteringScript.LastIndexOf("");
 
-            // Removing all GO ocurrences, considering, as 'spacing', line endings, '\n' and '\r', and the default ' '
+            // Removing all words 'GO' ocurrences, considering, as diferential characters, line endings, '\n' and '\r', and the default ' '
             alteringScript = alteringScript.RemoveWord("GO", '\n', '\r');
 
             return alteringScript;  
